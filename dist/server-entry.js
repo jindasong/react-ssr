@@ -72,7 +72,7 @@ module.exports =
 
 
 if (true) {
-  module.exports = __webpack_require__(8);
+  module.exports = __webpack_require__(5);
 } else {
   module.exports = require('./dist/react-hot-loader.development.js');
 }
@@ -134,7 +134,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _mobxReact = __webpack_require__(3);
 
-var _store = __webpack_require__(5);
+var _reactHotLoader = __webpack_require__(0);
+
+var _store = __webpack_require__(6);
 
 var _app = __webpack_require__(9);
 
@@ -152,9 +154,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = function _default(stores) {
   return _react2.default.createElement(
-    _mobxReact.Provider,
-    stores,
-    _react2.default.createElement(_app2.default, null)
+    _reactHotLoader.AppContainer,
+    null,
+    _react2.default.createElement(
+      _mobxReact.Provider,
+      stores,
+      _react2.default.createElement(_app2.default, null)
+    )
   );
 };
 
@@ -183,12 +189,20 @@ exports.createStoreMap = _store.createStoreMap;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.default:e}Object.defineProperty(exports,"__esModule",{value:!0});var React=_interopDefault(__webpack_require__(2)),classCallCheck=function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")},inherits=function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)},possibleConstructorReturn=function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t},AppContainer=function(e){function t(){return classCallCheck(this,t),possibleConstructorReturn(this,e.apply(this,arguments))}return inherits(t,e),t.prototype.render=function(){return React.Children.only(this.props.children)},t}(React.Component),hot_prod=function(){return function(e){return e}},areComponentsEqual=function(e,t){return e===t},setConfig=function(){};exports.AppContainer=AppContainer,exports.hot=hot_prod,exports.areComponentsEqual=areComponentsEqual,exports.setConfig=setConfig;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(module) {
 
 exports.__esModule = true;
 exports.createStoreMap = undefined;
 
-var _list = __webpack_require__(6);
+var _list = __webpack_require__(7);
 
 var _list2 = _interopRequireDefault(_list);
 
@@ -230,7 +244,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -240,7 +254,7 @@ exports.__esModule = true;
 
 var _desc, _value, _class, _descriptor;
 
-var _mobx = __webpack_require__(7);
+var _mobx = __webpack_require__(8);
 
 (function () {
   var enterModule = __webpack_require__(0).enterModule;
@@ -339,18 +353,10 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("mobx");
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.default:e}Object.defineProperty(exports,"__esModule",{value:!0});var React=_interopDefault(__webpack_require__(2)),classCallCheck=function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")},inherits=function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)},possibleConstructorReturn=function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t},AppContainer=function(e){function t(){return classCallCheck(this,t),possibleConstructorReturn(this,e.apply(this,arguments))}return inherits(t,e),t.prototype.render=function(){return React.Children.only(this.props.children)},t}(React.Component),hot_prod=function(){return function(e){return e}},areComponentsEqual=function(e,t){return e===t},setConfig=function(){};exports.AppContainer=AppContainer,exports.hot=hot_prod,exports.areComponentsEqual=areComponentsEqual,exports.setConfig=setConfig;
-
 
 /***/ }),
 /* 9 */

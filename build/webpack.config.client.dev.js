@@ -27,7 +27,8 @@ let config = webpackMerge(baseConfig, {
   },
   plugins: [
     new HTMLPlugin({
-      template: path.join(__dirname, '../client/template.html')
+      template: `!!ejs-compiled-loader!${path.resolve(__dirname, '../index.ejs')}`,
+      filename: 'index.ejs'
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
