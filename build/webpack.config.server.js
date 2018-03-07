@@ -11,4 +11,5 @@ module.exports = webpackMerge(baseConfig, {
     filename: 'server-entry.js',
     libraryTarget: 'commonjs2'
   },
+  externals: Object.keys(require('./../package').dependencies)
 })

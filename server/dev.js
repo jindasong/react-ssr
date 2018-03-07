@@ -11,9 +11,24 @@ const MemoryFs = require('memory-fs')
 const webpackServerConfig = require('./../build/webpack.config.server')
 const { renderToString } = require('react-dom/server')
 const serverCompiler = webpack(webpackServerConfig)
+const NativeModule = require('module')
+const vm = require('vm')
 const Module = module.constructor;
 const mfs = new MemoryFs
 let serverEntry
+
+const getModuleFromString = (bundle, filename) => {
+  const m = { exports: {} }
+  const wrapper = NativeModule.wrap(bundle)
+  const script = new vm.Script(wrapper, {
+    filename: filename,
+    displayErrors: true,
+  })
+  const result = script.runInThisContext()
+  result.call(m.exports, m.exports, require, m)
+  return m
+}
+
 serverCompiler.outputFileSystem = mfs
 serverCompiler.watch({}, (err, stats) => {
   if (err) throw err
@@ -25,8 +40,7 @@ serverCompiler.watch({}, (err, stats) => {
     webpackServerConfig.output.filename
   )
   const bundle = mfs.readFileSync(bundlePath, 'utf-8')
-  const m = new Module()
-  m._compile(bundle, 'server-entry.js');
+  const m = getModuleFromString(bundle, 'server-entry.js')
   serverEntry = m.exports
 })
 
@@ -55,10 +69,15 @@ module.exports = function (app) {
     if (!serverEntry) {
       return res.send('waiting for compile, refresh later')
     }
+    let routerContext = {}
     let stores = getStoreState(serverEntry.createStoreMap())
-    let serverApp = serverEntry.default(stores)
+    let serverApp = serverEntry.default(stores, routerContext, req.url)
     asyncBootstrap(serverApp)
       .then(() => {
+        if (routerContext.url) {
+          res.status(302).setHeader('Location', routerContext.url)
+          return res.end()
+        }
         getTemplate()
           .then(template => {
             let helmet = Helmet.rewind()
