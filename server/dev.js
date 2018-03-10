@@ -2,14 +2,10 @@
 const Axios = require('axios')
 const path = require('path')
 const proxy = require('http-proxy-middleware')
-const serialize = require('serialize-javascript')
-const ejs = require('ejs')
-const Helmet = require('react-helmet').default
 const asyncBootstrap = require('react-async-bootstrapper').default
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 const webpackServerConfig = require('./../build/webpack.config.server')
-const { renderToString } = require('react-dom/server')
 const utils = require('./utils')
 const serverCompiler = webpack(webpackServerConfig)
 const NativeModule = require('module')
