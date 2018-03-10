@@ -1,14 +1,33 @@
 'use strict'
 const path = require('path')
-const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
-const baseConfig = require('./webpack.base')
 const HTMLPlugin = require('html-webpack-plugin')
-let config = webpackMerge(baseConfig, {
+const merge = require('webpack-merge')
+const utils = require('./utils')
+const HappyPack = require('happypack')
+const nodeModulesPath = utils.resolve('node_modules')
+const srcPath = utils.resolve('src')
+
+let config = merge(require('./webpack.config.client.base'), {
   entry: {
     app: [
       'react-hot-loader/patch',
       path.join(__dirname, '../src/client-entry.js')
+    ]
+  },
+  module: {
+    rules: [
+      {
+        test: /.css$/,
+        include: srcPath,
+        exclude: nodeModulesPath,
+        loader: 'happypack/loader?id=css'
+      },
+      {
+        test: /.scss$/,
+        include: srcPath,
+        exclude: nodeModulesPath,
+        loader: 'happypack/loader?id=scss'
+      }
     ]
   },
   devServer: {
@@ -26,11 +45,68 @@ let config = webpackMerge(baseConfig, {
     }
   },
   plugins: [
-    new HTMLPlugin({
-      template: `!!ejs-compiled-loader!${path.resolve(__dirname, '../index.ejs')}`,
-      filename: 'index.ejs'
+    new HappyPack({
+      id: 'css',
+      loaders: [
+        {
+          loader: 'style-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true
+          }
+        }
+      ]
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new HappyPack({
+      id: 'scss',
+      loaders: [
+        {
+          loader: 'style-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true
+          }
+        }
+      ]
+    }),
+    new HTMLPlugin({
+      template: `!!ejs-compiled-loader!${ utils.resolve('src/index.client.ejs') }`,
+      filename: 'index.html'
+    })
   ]
 })
 

@@ -4,11 +4,7 @@ import Routers from './routers'
 
 class App extends Component {
   render () {
-    return (
-      <div>
-        <Routers/>
-      </div>
-    )
+    return <Routers/>
   }
 }
 

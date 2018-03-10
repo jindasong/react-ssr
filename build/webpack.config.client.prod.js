@@ -1,19 +1,74 @@
 const path = require('path')
-const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
-const baseConfig = require('./webpack.base')
-const HTMLPlugin = require('html-webpack-plugin')
-const config = webpackMerge(baseConfig, {
+const merge = require('webpack-merge')
+const HappyPack = require('happypack')
+const utils = require('./utils')
+const nodeModulesPath = utils.resolve('node_modules')
+const srcPath = utils.resolve('src')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const extractCss = new ExtractTextPlugin({
+  filename: 'css/[name].[hash].css'
+});
+
+const config = merge(require('./webpack.config.client.base'), {
   entry: {
     app: path.join(__dirname, '../src/client-entry.js'),
   },
-  output: {
-    filename: '[name].[hash].js',
+  module: {
+    rules: [
+      {
+        test: /.css$/,
+        include: srcPath,
+        exclude: nodeModulesPath,
+        loader: extractCss.extract({
+          use: [
+            'happypack/loader?id=css'
+          ]
+        })
+      },
+      {
+        test: /.less/,
+        include: srcPath,
+        exclude: nodeModulesPath,
+        loader: extractCss.extract({
+          use: [
+            'happypack/loader?id=less'
+          ]
+        })
+      }
+    ]
   },
   plugins: [
-    new HTMLPlugin({
-      template: `!!ejs-compiled-loader!${path.resolve(__dirname, '../index.ejs')}`,
-      filename: 'index.ejs'
+    extractCss,
+    new HappyPack({
+      id: 'css',
+      loaders: [
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: false
+          }
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: false
+          }
+        }
+      ]
+    }),
+    new HappyPack({
+      id: 'less',
+      loaders: [
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'postcss-loader'
+        },
+        {
+          loader: 'less-loader'
+        }
+      ]
     })
   ]
 })
