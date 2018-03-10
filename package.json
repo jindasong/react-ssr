@@ -45,7 +45,7 @@
   },
   "scripts": {
     "build": "npm run clear && npm run build:client && npm run build:server",
-    "build:client": "webpack --config build/webpack.config.client.js",
+    "build:client": "webpack --config build/webpack.config.client.prod.js",
     "build:server": "webpack --config build/webpack.config.server.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.dev.js",
     "dev:server": "cross-env NODE_ENV=development nodemon ./server/index.js",
