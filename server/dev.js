@@ -10,10 +10,10 @@ const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 const webpackServerConfig = require('./../build/webpack.config.server')
 const { renderToString } = require('react-dom/server')
+const utils = require('./utils')
 const serverCompiler = webpack(webpackServerConfig)
 const NativeModule = require('module')
 const vm = require('vm')
-const Module = module.constructor;
 const mfs = new MemoryFs
 let serverEntry
 
@@ -80,18 +80,7 @@ module.exports = function (app) {
         }
         getTemplate()
           .then(template => {
-            let helmet = Helmet.rewind()
-            let content = renderToString(serverApp)
-            let initState = serialize(stores)
-            let meta = helmet.meta.toString()
-            let title = helmet.title.toString()
-            let html = ejs.render(template, {
-              content,
-              initState,
-              meta,
-              title
-            })
-            res.end(html)
+            res.end(utils.getStaticContent(template, serverApp, stores))
           })
           .catch(error => {
             res.end('渲染失败', error)
@@ -100,6 +89,5 @@ module.exports = function (app) {
       .catch((error) => {
         console.warn(error)
       })
-
   })
 }

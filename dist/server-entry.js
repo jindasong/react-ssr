@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -72,7 +72,7 @@ module.exports =
 
 
 if (true) {
-  module.exports = __webpack_require__(5);
+  module.exports = __webpack_require__(6);
 } else {
   module.exports = require('./dist/react-hot-loader.development.js');
 }
@@ -116,10 +116,16 @@ module.exports = require("react");
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("mobx-react");
+module.exports = require("react-router-dom");
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("mobx-react");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -132,15 +138,17 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobxReact = __webpack_require__(3);
+var _reactRouterDom = __webpack_require__(3);
+
+var _mobxReact = __webpack_require__(4);
 
 var _reactHotLoader = __webpack_require__(0);
 
-var _store = __webpack_require__(6);
+var _store = __webpack_require__(7);
 
-var _app = __webpack_require__(9);
+var _App = __webpack_require__(10);
 
-var _app2 = _interopRequireDefault(_app);
+var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -152,14 +160,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _mobxReact.useStaticRendering)(true);
 
-var _default = function _default(stores) {
+var _default = function _default(stores, routerContext, url) {
   return _react2.default.createElement(
     _reactHotLoader.AppContainer,
     null,
     _react2.default.createElement(
       _mobxReact.Provider,
       stores,
-      _react2.default.createElement(_app2.default, null)
+      _react2.default.createElement(
+        _reactRouterDom.StaticRouter,
+        { context: routerContext, location: url },
+        _react2.default.createElement(_App2.default, null)
+      )
     )
   );
 };
@@ -185,7 +197,7 @@ exports.createStoreMap = _store.createStoreMap;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -193,7 +205,7 @@ function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.defaul
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -202,7 +214,7 @@ function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.defaul
 exports.__esModule = true;
 exports.createStoreMap = undefined;
 
-var _list = __webpack_require__(7);
+var _list = __webpack_require__(8);
 
 var _list2 = _interopRequireDefault(_list);
 
@@ -244,7 +256,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -254,7 +266,7 @@ exports.__esModule = true;
 
 var _desc, _value, _class, _descriptor;
 
-var _mobx = __webpack_require__(8);
+var _mobx = __webpack_require__(9);
 
 (function () {
   var enterModule = __webpack_require__(0).enterModule;
@@ -353,13 +365,141 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("mobx");
 
 /***/ }),
-/* 9 */
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+exports.__esModule = true;
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _routers = __webpack_require__(11);
+
+var _routers2 = _interopRequireDefault(_routers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(function () {
+  var enterModule = __webpack_require__(0).enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+  _inherits(App, _Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+  }
+
+  App.prototype.render = function render() {
+    return _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement(_routers2.default, null)
+    );
+  };
+
+  App.prototype.__reactstandin__regenerateByEval = function __reactstandin__regenerateByEval(key, code) {
+    this[key] = eval(code);
+  };
+
+  return App;
+}(_react.Component);
+
+var _default = App;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__(0).default;
+
+  var leaveModule = __webpack_require__(0).leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(App, 'App', '/Users/songjinda/Study/ssr-project/src/App.js');
+  reactHotLoader.register(_default, 'default', '/Users/songjinda/Study/ssr-project/src/App.js');
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+exports.__esModule = true;
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(3);
+
+var _list = __webpack_require__(12);
+
+var _list2 = _interopRequireDefault(_list);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(function () {
+  var enterModule = __webpack_require__(0).enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+var _default = function _default() {
+  return [_react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
+      return _react2.default.createElement(_reactRouterDom.Redirect, { to: 'list' });
+    }, key: 'index', exact: true }), _react2.default.createElement(_reactRouterDom.Route, { path: '/list', component: _list2.default, key: 'list' })];
+};
+
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__(0).default;
+
+  var leaveModule = __webpack_require__(0).leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(_default, 'default', '/Users/songjinda/Study/ssr-project/src/routers/index.js');
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -373,13 +513,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobxReact = __webpack_require__(3);
+var _mobxReact = __webpack_require__(4);
 
-var _reactHelmet = __webpack_require__(10);
+var _reactHelmet = __webpack_require__(13);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-var _axios = __webpack_require__(11);
+var _axios = __webpack_require__(14);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -473,8 +613,8 @@ exports.default = _default;
     return;
   }
 
-  reactHotLoader.register(App, 'App', '/Users/songjinda/Study/ssr-project/src/app.js');
-  reactHotLoader.register(_default, 'default', '/Users/songjinda/Study/ssr-project/src/app.js');
+  reactHotLoader.register(App, 'App', '/Users/songjinda/Study/ssr-project/src/views/list.js');
+  reactHotLoader.register(_default, 'default', '/Users/songjinda/Study/ssr-project/src/views/list.js');
   leaveModule(module);
 })();
 
@@ -482,13 +622,13 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-helmet");
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
