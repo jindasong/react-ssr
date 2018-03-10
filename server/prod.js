@@ -6,20 +6,31 @@ const utils = require('./utils')
 const createStoreMap = require('./../dist/server-entry').createStoreMap
 const serverEntry = require('./../dist/server-entry').default
 const asyncBootstrap = require('react-async-bootstrapper').default
+const LRU = require('lru-cache')
+const cache = LRU({
+  max: 500,
+  maxAge: 1000 * 60 * 10
+})
 
 module.exports = function (app) {
   app.use('/public', express.static(path.resolve(__dirname, '../dist')))
   app.get('*', (req, res) => {
-    let template = fs.readFileSync(path.resolve(__dirname, '../dist/index.ejs'), 'utf-8')
+    let template
     let stores = utils.getStoreState(createStoreMap())
     let routerContext = {}
     let serverApp = serverEntry(stores, routerContext, req.url)
-
     asyncBootstrap(serverApp)
       .then(() => {
         if (routerContext.url) {
           res.status(302).setHeader('Location', routerContext.url)
           return res.end()
+        }
+        // 模板缓存处理
+        if (!cache.has('template')) {
+          template = fs.readFileSync(path.resolve(__dirname, '../dist/index.ejs'), 'utf-8')
+          cache.set('template', template)
+        } else {
+          template = cache.get('template')
         }
         res.end(utils.getStaticContent(template, serverApp, stores))
       })
