@@ -1,0 +1,38 @@
+.nav {
+  background: #263238;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+
+  &__item {
+    position: relative;
+    display: inline-block;
+    padding: 20px 10px;
+    margin-left: 20px;
+    font-size: 16px;
+    color: hsla(0, 0%, 98%, .4);
+    text-decoration: none;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:after {
+      content: " ";
+      display: none;
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+    }
+
+    &.active, &:hover {
+      color: #fff;
+      &:after {
+        display: block;
+      }
+    }
+  }
+}

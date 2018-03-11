@@ -6,7 +6,6 @@ import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 import Store from './store'
 import App from './App'
-import './assets/less/index.less'
 
 const isServer = !!window.__INIT_STATE__
 

@@ -19,7 +19,14 @@ module.exports = {
     ],
     modules: [
       nodeModulesPath
-    ]
+    ],
+    alias: {
+      '@components': utils.resolve('src/components'),
+      '@assets': utils.resolve('src/assets'),
+      '@routers': utils.resolve('src/routers'),
+      '@store': utils.resolve('src/store'),
+      '@views': utils.resolve('src/views')
+    }
   },
   module: {
     rules: [
@@ -28,6 +35,14 @@ module.exports = {
         loader: 'happypack/loader?id=babel',
         include: srcPath,
         exclude:  nodeModulesPath
+      },
+      {
+        test: /\.otf|ttf|woff2?|eot(\?\S*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 2048,
+          name: 'fonts/[name][hash:7].[ext]'
+        }
       }
     ]
   },

@@ -1,0 +1,31 @@
+.article-item {
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 25px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, .15);
+
+  &:hover {
+    box-shadow: 0 0 25px rgba(50, 50, 93, .30), 0 5px 15px rgba(0, 0, 0, .30);
+  }
+
+  &__title {
+    display: block;
+    font-size: 24px;
+    text-decoration: none;
+    color: #333;
+
+    &:hover {
+      color: #666;
+    }
+  }
+  
+  &__desc {
+    color: #555;
+    padding: 20px 0;
+    line-height: 1.5em;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+
+  &__tag {
+    padding-top: 20px;
+  }
+}

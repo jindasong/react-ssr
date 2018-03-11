@@ -34,6 +34,21 @@ const config = merge(require('./webpack.config.client.base'), {
             'happypack/loader?id=less'
           ]
         })
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)(\?\S*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 2048,
+              name: 'images/[name].[hash:7].[ext]'
+            },
+          },
+          {
+            loader: 'image-webpack-loader'
+          }
+        ]
       }
     ]
   },

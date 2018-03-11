@@ -23,6 +23,18 @@ module.exports = merge(require('./webpack.config.base'), {
         include: srcPath,
         exclude: nodeModulesPath,
         loader: 'ignore-loader'
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)(\?\S*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 2048,
+              name: 'images/[name].[hash:7].[ext]'
+            },
+          }
+        ]
       }
     ]
   }

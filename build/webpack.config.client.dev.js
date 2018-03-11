@@ -23,10 +23,22 @@ let config = merge(require('./webpack.config.client.base'), {
         loader: 'happypack/loader?id=css'
       },
       {
-        test: /.scss$/,
+        test: /.less$/,
         include: srcPath,
         exclude: nodeModulesPath,
-        loader: 'happypack/loader?id=scss'
+        loader: 'happypack/loader?id=less'
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)(\?\S*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 2048,
+              name: 'images/[name].[hash:7].[ext]'
+            },
+          }
+        ]
       }
     ]
   },
@@ -65,17 +77,11 @@ let config = merge(require('./webpack.config.client.base'), {
           options: {
             sourceMap: true
           }
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true
-          }
         }
       ]
     }),
     new HappyPack({
-      id: 'scss',
+      id: 'less',
       loaders: [
         {
           loader: 'style-loader',
@@ -96,7 +102,7 @@ let config = merge(require('./webpack.config.client.base'), {
           }
         },
         {
-          loader: 'sass-loader',
+          loader: 'less-loader',
           options: {
             sourceMap: true
           }
