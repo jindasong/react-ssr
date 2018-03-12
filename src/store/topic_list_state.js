@@ -1,20 +1,16 @@
 'use strict'
+
 import {
   observable,
-  action,
-  computed
+  action
 } from 'mobx'
 
-class ListState {
+class TopicListState {
   constructor (data) {
     this.data = data || []
   }
 
   @observable data
-
-  @computed get a () {
-    return this.data
-  }
 
   @action update (data) {
     this.data = data
@@ -27,4 +23,4 @@ class ListState {
   }
 }
 
-export default ListState
+export default TopicListState

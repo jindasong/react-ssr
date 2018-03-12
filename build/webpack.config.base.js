@@ -25,7 +25,9 @@ module.exports = {
       '@assets': utils.resolve('src/assets'),
       '@routers': utils.resolve('src/routers'),
       '@store': utils.resolve('src/store'),
-      '@views': utils.resolve('src/views')
+      '@views': utils.resolve('src/views'),
+      '@utils': utils.resolve('src/utils'),
+      '@http': utils.resolve('src/utils/http'),
     }
   },
   module: {

@@ -5,13 +5,12 @@ import Header from '@components/header'
 import Nav from '@components/nav'
 import ArticleItem from '@components/article-item'
 import { observer  } from 'mobx-react'
-import { observable  } from 'mobx'
 import { inject } from 'mobx-react/index'
-import Axios from 'axios/index'
+import http from '@http'
 
 @inject((stores) => {
   return {
-    listState: stores.listState
+    topicListState: stores.topicListState
   }
 })
 @observer
@@ -19,20 +18,20 @@ class Index extends Component {
   asyncBootstrap () {
     return new Promise((resolve, reject) => {
       this.fetchList()
-        .then(({ data: { data } })=> {
-          this.props.listState.data = data
+        .then(( { data } ) => {
+          this.props.topicListState.update(data)
           resolve(true)
         })
         .catch(reject)
     })
   }
   fetchList () {
-    return Axios.get('http://cnodejs.org/api/v1/topics')
+    return http.get('http://cnodejs.org/api/v1/topics')
   }
   componentDidMount () {
     this.fetchList()
-      .then(({ data: { data } })=> {
-        this.props.listState.update(data)
+      .then(( { data } ) => {
+        this.props.topicListState.update(data)
       })
   }
   render () {
@@ -40,8 +39,8 @@ class Index extends Component {
       <Header />
       <Nav />
       <div className="main">
-        { this.props.listState.data.map((item, index) => {
-          return <ArticleItem key={ index } />
+        { this.props.topicListState.data.map((item, index) => {
+          return <ArticleItem title={item.title} tags={ [ item.tab ] } desc={ item.title + item.title } key={ index } />
         }) }
       </div>
     </div>

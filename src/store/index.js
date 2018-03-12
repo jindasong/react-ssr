@@ -1,12 +1,12 @@
 'use strict'
-import ListState from './list'
+import TopicListState from './topic_list_state'
 
 export const createStoreMap = () => {
   return {
-    listState: new ListState()
+    topicListState: new TopicListState()
   }
 }
 
 export default {
-  ListState
+  TopicListState
 }

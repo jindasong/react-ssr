@@ -40,13 +40,6 @@ serverCompiler.watch({}, (err, stats) => {
   serverEntry = m.exports
 })
 
-const getStoreState = (stores) => {
-  return Object.keys(stores).reduce((result, storeName) => {
-    result[storeName] = stores[storeName].toJSON()
-    return result
-  }, {})
-}
-
 function getTemplate () {
   return new Promise((resolve, reject) => {
     Axios.get('http://localhost:8888/public/index.ejs')
@@ -63,27 +56,28 @@ module.exports = function (app) {
   }))
   app.get('*', (req, res) => {
     if (!serverEntry) {
-      return res.send('waiting for compile, refresh later')
+      return res.send('等待编译中，请稍后刷新...')
     }
     let routerContext = {}
-    let stores = getStoreState(serverEntry.createStoreMap())
-    let serverApp = serverEntry.default(stores, routerContext, req.url)
+    let store = serverEntry.createStoreMap()
+    let serverApp = serverEntry.default(store, routerContext, req.url)
     asyncBootstrap(serverApp)
       .then(() => {
+        let initState = utils.getStoreState(store)
         if (routerContext.url) {
           res.status(302).setHeader('Location', routerContext.url)
           return res.end()
         }
         getTemplate()
           .then(template => {
-            res.end(utils.getStaticContent(template, serverApp, stores))
+            res.end(utils.getStaticContent(template, serverApp, initState))
           })
           .catch(error => {
-            res.end('渲染失败', error)
+            res.end('模板渲染失败', error)
           })
       })
       .catch((error) => {
-        console.warn(error)
+        res.status(500).end(error)
       })
   })
 }

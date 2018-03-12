@@ -16,11 +16,12 @@ module.exports = function (app) {
   app.use('/public', express.static(path.resolve(__dirname, '../dist')))
   app.get('*', (req, res) => {
     let template
-    let stores = utils.getStoreState(createStoreMap())
+    let store = createStoreMap()
     let routerContext = {}
-    let serverApp = serverEntry(stores, routerContext, req.url)
+    let serverApp = serverEntry(store, routerContext, req.url)
     asyncBootstrap(serverApp)
       .then(() => {
+        let initState = utils.getStoreState(store)
         if (routerContext.url) {
           res.status(302).setHeader('Location', routerContext.url)
           return res.end()
@@ -32,7 +33,7 @@ module.exports = function (app) {
         } else {
           template = cache.get('template')
         }
-        res.end(utils.getStaticContent(template, serverApp, stores))
+        res.end(utils.getStaticContent(template, serverApp, initState))
       })
       .catch((error) => {
         console.warn(error)

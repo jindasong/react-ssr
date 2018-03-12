@@ -12,7 +12,7 @@ const isServer = !!window.__INIT_STATE__
 function render () {
   return (
     <AppContainer>
-      <Provider listState={ new Store.ListState(isServer ? window.__INIT_STATE__.listState.data : []) }>
+      <Provider topicListState={ new Store.TopicListState(isServer ? window.__INIT_STATE__.topicListState.data : []) }>
         <BrowserRouter>
           <App/>
         </BrowserRouter>
