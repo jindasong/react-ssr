@@ -36,7 +36,7 @@ module.exports = function (app) {
         res.end(utils.getStaticContent(template, serverApp, initState))
       })
       .catch((error) => {
-        console.warn(error)
+        res.status(500).send(error)
       })
   })
 }

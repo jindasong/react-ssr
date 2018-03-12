@@ -12,4 +12,8 @@ if (!isDev) {
   require('./dev')(app)
 }
 
+app.use(function (error, req, res) {
+  res.status(500).send('服务器错误!', error.stack)
+})
+
 app.listen(3333)
