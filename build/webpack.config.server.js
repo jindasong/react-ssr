@@ -33,6 +33,9 @@ module.exports = merge(require('./webpack.config.base'), {
               limit: 2048,
               name: 'images/[name].[hash:7].[ext]'
             },
+          },
+          {
+            loader: 'image-webpack-loader'
           }
         ]
       }

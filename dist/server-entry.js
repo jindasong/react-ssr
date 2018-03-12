@@ -901,7 +901,7 @@ exports.default = _default;
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "images/avatar.30142a1.jpg";
+module.exports = __webpack_require__.p + "images/avatar.d0ca5ac.jpg";
 
 /***/ }),
 /* 21 */
