@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HappyPack = require('happypack')
 const utils = require('./utils')
@@ -12,6 +13,12 @@ const extractCss = new ExtractTextPlugin({
 const config = merge(require('./webpack.config.client.base'), {
   entry: {
     app: path.join(__dirname, '../src/client-entry.js'),
+  },
+  resolve: {
+    alias: {
+      'react': utils.resolve('node_modules/react/cjs/react.production.min'),
+      'react-dom': utils.resolve('node_modules/react-dom/cjs/react-dom.production.min'),
+    }
   },
   module: {
     rules: [
@@ -84,7 +91,11 @@ const config = merge(require('./webpack.config.client.base'), {
           loader: 'less-loader'
         }
       ]
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ]
 })
 

@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const utils = require('./utils')
 const nodeModulesPath = utils.resolve('node_modules')
@@ -21,5 +22,10 @@ module.exports = merge(require('./webpack.config.server.base'), {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ]
 })

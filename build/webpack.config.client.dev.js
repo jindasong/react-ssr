@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const webpack = require('webpack')
 const HTMLPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 const utils = require('./utils')
@@ -114,6 +115,9 @@ let config = merge(require('./webpack.config.client.base'), {
     new HTMLPlugin({
       template: `!!ejs-compiled-loader!${ utils.resolve('src/index.client.ejs') }`,
       filename: 'index.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
     })
   ]
 })
