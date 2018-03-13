@@ -30,13 +30,15 @@ let config = merge(require('./webpack.config.client.base'), {
       },
       {
         test: /\.(gif|png|jpe?g|svg)(\?\S*)?$/,
+        include: srcPath,
+        exclude: nodeModulesPath,
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 2048,
               name: 'images/[name].[hash:7].[ext]'
-            },
+            }
           }
         ]
       }
