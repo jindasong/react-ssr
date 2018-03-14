@@ -2,11 +2,15 @@
 const path = require('path')
 const webpack = require('webpack')
 const HTMLPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const merge = require('webpack-merge')
 const utils = require('./utils')
 const HappyPack = require('happypack')
 const nodeModulesPath = utils.resolve('node_modules')
 const srcPath = utils.resolve('src')
+const extractCss = new ExtractTextPlugin({
+  filename: 'css/[name].[hash].css'
+})
 
 let config = merge(require('./webpack.config.client.base'), {
   entry: {
@@ -15,19 +19,28 @@ let config = merge(require('./webpack.config.client.base'), {
       path.join(__dirname, '../src/client-entry.js')
     ]
   },
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
         test: /.css$/,
         include: srcPath,
         exclude: nodeModulesPath,
-        loader: 'happypack/loader?id=css'
+        loader: extractCss.extract({
+          use: [
+            'happypack/loader?id=css'
+          ]
+        })
       },
       {
         test: /.less$/,
         include: srcPath,
         exclude: nodeModulesPath,
-        loader: 'happypack/loader?id=less'
+        loader: extractCss.extract({
+          use: [
+            'happypack/loader?id=less'
+          ]
+        })
       },
       {
         test: /\.(gif|png|jpe?g|svg)(\?\S*)?$/,
@@ -60,11 +73,12 @@ let config = merge(require('./webpack.config.client.base'), {
     }
   },
   plugins: [
+    extractCss,
     new HappyPack({
       id: 'css',
       loaders: [
         {
-          loader: 'style-loader',
+          loader: 'postcss-loader',
           options: {
             sourceMap: true
           }
@@ -74,24 +88,12 @@ let config = merge(require('./webpack.config.client.base'), {
           options: {
             sourceMap: true
           }
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: true
-          }
         }
       ]
     }),
     new HappyPack({
       id: 'less',
       loaders: [
-        {
-          loader: 'style-loader',
-          options: {
-            sourceMap: true
-          }
-        },
         {
           loader: 'css-loader',
           options: {

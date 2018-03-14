@@ -8,7 +8,7 @@ const srcPath = utils.resolve('src')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const extractCss = new ExtractTextPlugin({
   filename: 'css/[name].[hash].css'
-});
+})
 
 const config = merge(require('./webpack.config.client.base'), {
   entry: {
@@ -20,6 +20,7 @@ const config = merge(require('./webpack.config.client.base'), {
       'react-dom': utils.resolve('node_modules/react-dom/cjs/react-dom.production.min'),
     }
   },
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {
@@ -67,14 +68,11 @@ const config = merge(require('./webpack.config.client.base'), {
         {
           loader: 'postcss-loader',
           options: {
-            sourceMap: false
+            minimize: true
           }
         },
         {
-          loader: 'css-loader',
-          options: {
-            sourceMap: false
-          }
+          loader: 'css-loader'
         }
       ]
     }),
@@ -82,7 +80,10 @@ const config = merge(require('./webpack.config.client.base'), {
       id: 'less',
       loaders: [
         {
-          loader: 'css-loader'
+          loader: 'css-loader',
+          options: {
+            minimize: true
+          }
         },
         {
           loader: 'postcss-loader'
@@ -95,7 +96,8 @@ const config = merge(require('./webpack.config.client.base'), {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.HashedModuleIdsPlugin()
   ]
 })
 
