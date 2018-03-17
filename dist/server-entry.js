@@ -745,7 +745,7 @@ var Header = function (_Component) {
       _react2.default.createElement(
         'span',
         { className: 'header__title' },
-        '\u82B1\u751F\u6BDB\u8C46\u7684\u524D\u7AEF\u535A\u5BA2'
+        '\u6BDB\u8C46\u7684\u524D\u7AEF\u535A\u5BA2'
       )
     );
   };

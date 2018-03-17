@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <header className="header">
         <img className="header__avatar" src={ avatar } alt="花生毛豆头像"/>
-        <span className="header__title">花生毛豆的前端博客</span>
+        <span className="header__title">毛豆的前端博客</span>
       </header>
     )
   }
