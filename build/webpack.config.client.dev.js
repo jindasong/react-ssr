@@ -7,6 +7,7 @@ const merge = require('webpack-merge')
 const utils = require('./utils')
 const HappyPack = require('happypack')
 const nodeModulesPath = utils.resolve('node_modules')
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 const srcPath = utils.resolve('src')
 const extractCss = new ExtractTextPlugin({
   filename: 'css/[name].[hash].css'
@@ -120,6 +121,10 @@ let config = merge(require('./webpack.config.client.base'), {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
+    }),
+    new ServiceWorkerWebpackPlugin({
+      entry: utils.resolve('src/sw.js'),
+      publicPath: '/public/'
     })
   ]
 })

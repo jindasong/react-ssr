@@ -1,0 +1,37 @@
+{
+  "name"              : "毛豆前端博客",
+  "short_name"        : "毛豆FE",
+  "description"       : "毛豆的前端博客",
+  "start_url"         : "/",
+  "display"           : "standalone",
+  "orientation"       : "any",
+  "background_color"  : "#ACE",
+  "theme_color"       : "#ACE",
+  "icons": [
+    {
+      "src"           : "/icon/icon.png",
+      "sizes"         : "72x72",
+      "type"          : "image/png"
+    },
+    {
+      "src"           : "/icon/icon.png",
+      "sizes"         : "152x152",
+      "type"          : "image/png"
+    },
+    {
+      "src"           : "/icon/icon.png",
+      "sizes"         : "192x192",
+      "type"          : "image/png"
+    },
+    {
+      "src"           : "/icon/icon.png",
+      "sizes"         : "256x256",
+      "type"          : "image/png"
+    },
+    {
+      "src"           : "/icon/icon.png",
+      "sizes"         : "512x512",
+      "type"          : "image/png"
+    }
+  ]
+}

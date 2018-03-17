@@ -9,6 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const extractCss = new ExtractTextPlugin({
   filename: 'css/[name].[hash].css'
 })
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 
 const config = merge(require('./webpack.config.client.base'), {
   entry: {
@@ -97,7 +98,12 @@ const config = merge(require('./webpack.config.client.base'), {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.optimize.UglifyJsPlugin(),
-    new webpack.HashedModuleIdsPlugin()
+    new webpack.HashedModuleIdsPlugin(),
+    new ServiceWorkerWebpackPlugin({
+      entry: utils.resolve('src/sw.js'),
+      publicPath: '/public/',
+      filename: '../static/sw.js'
+    })
   ]
 })
 

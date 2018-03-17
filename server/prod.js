@@ -14,6 +14,7 @@ const cache = LRU({
 
 module.exports = function (app) {
   app.use('/public', express.static(path.resolve(__dirname, '../dist')))
+  app.use(express.static(path.resolve(__dirname, '../static')))
   app.get('*', (req, res) => {
     let template
     let store = createStoreMap()

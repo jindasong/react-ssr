@@ -1,6 +1,7 @@
 'use strict'
-import React, { Component } from 'react'
 import './index.less'
+import Helmet from 'react-helmet'
+import React, { Component } from 'react'
 import Header from '@components/header'
 import Nav from '@components/nav'
 import ArticleItem from '@components/article-item'
@@ -36,6 +37,10 @@ class Index extends Component {
   }
   render () {
     return <div>
+      <Helmet>
+        <title>毛豆的前端博客-首页</title>
+        <meta name="description" content="毛豆的前端博客|web前端开发工程师|Node.js|React|Vue|Webpack" />
+      </Helmet>
       <Header />
       <Nav />
       <div className="main">

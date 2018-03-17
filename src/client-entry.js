@@ -9,6 +9,14 @@ import App from './App'
 
 const isServer = !!window.__INIT_STATE__
 
+if (navigator.serviceWorker) {
+  let swPath = '/sw.js'
+  navigator.serviceWorker.register(swPath)
+    .catch(error => {
+      console.log('service worker 注册失败:', error)
+    })
+}
+
 function render () {
   return (
     <AppContainer>

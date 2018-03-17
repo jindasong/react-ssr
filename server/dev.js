@@ -1,4 +1,5 @@
 'use strict'
+const express = require('express')
 const Axios = require('axios')
 const path = require('path')
 const proxy = require('http-proxy-middleware')
@@ -51,9 +52,13 @@ function getTemplate () {
 }
 
 module.exports = function (app) {
+  app.use('/sw.js', proxy({
+    target: 'http://localhost:8888/public'
+  }))
   app.use('/public', proxy({
     target: 'http://localhost:8888'
   }))
+  app.use(express.static(path.resolve(__dirname, '../static')))
   app.get('*', (req, res) => {
     if (!serverEntry) {
       return res.send('等待编译中，请稍后刷新...')
