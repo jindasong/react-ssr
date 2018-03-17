@@ -5,9 +5,8 @@ import React, { Component } from 'react'
 import Header from '@components/header'
 import Nav from '@components/nav'
 import ArticleItem from '@components/article-item'
-import { observer  } from 'mobx-react'
-import { inject } from 'mobx-react/index'
-import http from '@http'
+import { observer, inject  } from 'mobx-react'
+import api from '@api'
 
 @inject((stores) => {
   return {
@@ -18,7 +17,7 @@ import http from '@http'
 class Index extends Component {
   asyncBootstrap () {
     return new Promise((resolve, reject) => {
-      this.fetchList()
+      api.article.fetchArticleList()
         .then(( { data } ) => {
           this.props.topicListState.update(data)
           resolve(true)
@@ -26,29 +25,18 @@ class Index extends Component {
         .catch(reject)
     })
   }
-  fetchList () {
-    return http.get('http://cnodejs.org/api/v1/topics')
-  }
-  componentDidMount () {
-    this.fetchList()
-      .then(( { data } ) => {
-        this.props.topicListState.update(data)
-      })
-  }
   render () {
-    return <div>
-      <Helmet>
-        <title>毛豆的前端博客-首页</title>
-        <meta name="description" content="毛豆的前端博客|web前端开发工程师|Node.js|React|Vue|Webpack" />
-      </Helmet>
-      <Header />
-      <Nav />
-      <div className="main">
+    return (
+      <div>
+        <Helmet>
+          <title>毛豆的前端博客-首页</title>
+          <meta name="description" content="毛豆的前端博客|web前端开发工程师|Node.js|React|Vue|Webpack"/>
+        </Helmet>
         { this.props.topicListState.data.map((item, index) => {
-          return <ArticleItem title={item.title} tags={ [ item.tab ] } desc={ item.title + item.title } key={ index } />
+          return <ArticleItem title={ item.title } tags={ [ item.tab ] } desc={ item.title + item.title } key={ index } itemId={ item.id }/>
         }) }
       </div>
-    </div>
+    )
   }
 }
 

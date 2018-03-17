@@ -18,7 +18,7 @@ npm manifest:
     "name": "ssr-project",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "article-details.js",
     "devDependencies": {
       "autoprefixer": "^8.1.0",
       "babel-core": "^6.26.0",
@@ -80,9 +80,9 @@ npm manifest:
       "build:client": "webpack --config build/webpack.config.client.prod.js",
       "build:server": "webpack --config build/webpack.config.server.prod.js",
       "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.dev.js",
-      "dev:server": "cross-env NODE_ENV=development nodemon ./server/index.js",
+      "dev:server": "cross-env NODE_ENV=development nodemon ./server/article-details.js",
       "dev": "npm run dev:server && run run dev:client",
-      "start": "cross-env NODE_ENV=production node ./server/index.js",
+      "start": "cross-env NODE_ENV=production node ./server/article-details.js",
       "clear": "rimraf dist"
     },
     "author": "",

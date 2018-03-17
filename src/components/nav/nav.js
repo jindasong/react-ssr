@@ -6,9 +6,9 @@ class Nav extends Component {
   render () {
     return (
       <nav className="nav">
-        <a className="nav__item active" href="#">Home</a>
-        <a className="nav__item" href="#">About</a>
-        <a className="nav__item" href="#">Github</a>
+        <a className="nav__item active" href="/">Home</a>
+        <a className="nav__item" href="/about">About</a>
+        <a className="nav__item" href="https://github.com/jindasong">Github</a>
       </nav>
     )
   }

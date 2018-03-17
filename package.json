@@ -45,6 +45,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "express": "^4.16.2",
+    "github-markdown-css": "^2.10.0",
     "lru-cache": "^4.1.2",
     "mobx": "^3.6.1",
     "mobx-react": "^4.4.2",

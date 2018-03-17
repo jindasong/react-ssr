@@ -8,6 +8,9 @@ let cacheWhitelist = [
 
 // 需要被缓存的文件的 URL 列表
 let cacheFileList =  global.serviceWorkerOption.assets
+cacheFileList = cacheFileList.filter(item => {
+  return item.indexOf('hot') === -1
+})
 
 // 监听 install 事件
 self.addEventListener('install', function (event) {

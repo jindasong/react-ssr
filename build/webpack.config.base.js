@@ -6,7 +6,6 @@ const HappyPack = require('happypack');
 const nodeModulesPath = utils.resolve('node_modules')
 const srcPath = utils.resolve('src')
 
-
 module.exports = {
   output: {
     path: path.join(__dirname, '../dist'),
@@ -22,6 +21,7 @@ module.exports = {
     ],
     alias: {
       '@components': utils.resolve('src/components'),
+      '@api': utils.resolve('src/api'),
       '@assets': utils.resolve('src/assets'),
       '@routers': utils.resolve('src/routers'),
       '@store': utils.resolve('src/store'),
