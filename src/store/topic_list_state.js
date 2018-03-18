@@ -16,6 +16,10 @@ class TopicListState {
     this.data = data
   }
 
+  @action batchAdd (data) {
+    this.data = this.data.concat(data)
+  }
+
   toJSON () {
     return {
       data: this.data

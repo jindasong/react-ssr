@@ -8,13 +8,10 @@ import Store from './store'
 import App from './App'
 
 const isServer = !!window.__INIT_STATE__
+let initState = window.__INIT_STATE__ || {}
 
-if (!window.__INIT_STATE__) {
-  window.__INIT_STATE__ = {}
-}
-
-let topicListState = window.__INIT_STATE__.topicListState
-let articleState = window.__INIT_STATE__.articleState
+let topicListState = initState.topicListState || {}
+let articleState = initState.articleState || {}
 
 if (navigator.serviceWorker) {
   let swPath = '/sw.js'
